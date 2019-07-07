@@ -1,0 +1,20 @@
+version: "3"
+
+networks:
+    ddns-updater:
+        external: true
+
+services:
+    app:
+        container_name: adamzelycz-ddns-updater
+        build:
+            context: docker
+        image: adamzelycz/selenium:debian
+        restart: "on-failure"
+        networks:
+            - ddns-updater
+        stdin_open: true
+        volumes:
+            - "/var/log/ddns-updater/app:/var/log/app"
+            - ".:/ddns-updater"
+
